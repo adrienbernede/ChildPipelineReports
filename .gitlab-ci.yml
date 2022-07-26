@@ -5,11 +5,8 @@
 # SPDX-License-Identifier: (MIT)
 ###############################################################################
 
-image: ubuntu:22.04
-
 default:
-  tags:
-    - docker
+  tags: [shell, ruby]
 
 stages:
   - first
