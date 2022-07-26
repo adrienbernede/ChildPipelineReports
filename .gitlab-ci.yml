@@ -75,6 +75,6 @@ child-5:
       pipeline_variables: true
 
 end-job:
-  stage: last
+  stage: third
   script:
     - echo "Bye World, passing job, how about the full pipeline status ?."
