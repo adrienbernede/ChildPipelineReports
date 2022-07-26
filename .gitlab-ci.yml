@@ -1,0 +1,82 @@
+###############################################################################
+# Copyright (c) 2022, Lawrence Livermore National Security, LLC and RADIUSS
+# project contributors. See the COPYRIGHT file for details.
+#
+# SPDX-License-Identifier: (MIT)
+###############################################################################
+
+image: ubuntu:22.04
+
+default:
+  tags: docker
+
+stages:
+  - first
+  - second
+  - third
+
+start-job:
+  stage: first
+  script:
+    - echo "Hello World, parent pipeline passing so far."
+
+child-1:
+  stage: second
+  variables:
+    DURATION: 5
+  trigger:
+    include:
+      - local: 'passing-child-pipeline.yml'
+    strategy: depend
+    forward:
+      pipeline_variables: true
+
+
+#child-2:
+#  stage: second
+#  variables:
+#    DURATION: 65
+#  trigger:
+#    include:
+#      - local: 'failing-child-pipeline.yml'
+#    strategy: depend
+#    forward:
+#      pipeline_variables: true
+
+child-3:
+  stage: second
+  variables:
+    DURATION: 125
+  trigger:
+    include:
+      - local: 'passing-child-pipeline.yml'
+    strategy: depend
+    forward:
+      pipeline_variables: true
+
+#child-4:
+#  stage: second
+#  variables:
+#    DURATION: 185
+#  trigger:
+#    include:
+#      - local: 'failing-child-pipeline.yml'
+#    strategy: depend
+#    forward:
+#      pipeline_variables: true
+
+child-5:
+  stage: second
+  variables:
+    DURATION: 245
+  trigger:
+    include:
+      - local: 'passing-child-pipeline.yml'
+    strategy: depend
+    forward:
+      pipeline_variables: true
+
+end-job:
+  stage: last
+  script:
+    - echo "Bye World, passing job, how about the full pipeline status ?."
