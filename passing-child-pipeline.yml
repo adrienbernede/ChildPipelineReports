@@ -5,10 +5,33 @@
 # SPDX-License-Identifier: (MIT)
 ###############################################################################
 
+stages:
+  - first
+  - second
+  - third
+
 default:
   tags: [shell, ruby]
 
+status-pending:
+  stage: first
+  script:
+    - report-status ${CONTEXT} pending
+
 child-job:
+  stage: second
   script:
     - echo -e "Hello sub-World, I will pass the tests."
     - sleep ${DURATION}
+
+status-success:
+  stage: third
+  script:
+    - report-status ${CONTEXT} success
+  when: on_success
+
+status-failure:
+  stage: third
+  script:
+    - report-status ${CONTEXT} failure
+  when: on_failure
