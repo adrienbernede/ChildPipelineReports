@@ -13,6 +13,11 @@ stages:
   - second
   - third
 
+status-pending:
+  stage: first
+  script:
+    - report-status main pending
+
 start-job:
   stage: first
   script:
@@ -21,6 +26,7 @@ start-job:
 child-1:
   stage: second
   variables:
+    CONTEXT: "child 1"
     DURATION: 5
   trigger:
     include:
@@ -33,6 +39,7 @@ child-1:
 child-2:
   stage: second
   variables:
+    CONTEXT: "child 2"
     DURATION: 65
   trigger:
     include:
@@ -44,6 +51,7 @@ child-2:
 child-3:
   stage: second
   variables:
+    CONTEXT: "child 3"
     DURATION: 125
   trigger:
     include:
@@ -55,6 +63,7 @@ child-3:
 child-4:
   stage: second
   variables:
+    CONTEXT: "child 4"
     DURATION: 185
   trigger:
     include:
@@ -66,6 +75,7 @@ child-4:
 child-5:
   stage: second
   variables:
+    CONTEXT: "child 5"
     DURATION: 245
   trigger:
     include:
@@ -78,3 +88,16 @@ end-job:
   stage: third
   script:
     - echo "Bye World, passing job, how about the full pipeline status ?."
+  when: always
+
+status-success:
+  stage: third
+  script:
+    - report-status main success
+  when: on_success
+
+status-failure:
+  stage: third
+  script:
+    - report-status main failure
+  when: on_failure
