@@ -30,16 +30,16 @@ child-1:
       pipeline_variables: true
 
 
-#child-2:
-#  stage: second
-#  variables:
-#    DURATION: 65
-#  trigger:
-#    include:
-#      - local: 'failing-child-pipeline.yml'
-#    strategy: depend
-#    forward:
-#      pipeline_variables: true
+child-2:
+  stage: second
+  variables:
+    DURATION: 65
+  trigger:
+    include:
+      - local: 'failing-child-pipeline.yml'
+    strategy: depend
+    forward:
+      pipeline_variables: true
 
 child-3:
   stage: second
@@ -52,16 +52,16 @@ child-3:
     forward:
       pipeline_variables: true
 
-#child-4:
-#  stage: second
-#  variables:
-#    DURATION: 185
-#  trigger:
-#    include:
-#      - local: 'failing-child-pipeline.yml'
-#    strategy: depend
-#    forward:
-#      pipeline_variables: true
+child-4:
+  stage: second
+  variables:
+    DURATION: 185
+  trigger:
+    include:
+      - local: 'failing-child-pipeline.yml'
+    strategy: depend
+    forward:
+      pipeline_variables: true
 
 child-5:
   stage: second
